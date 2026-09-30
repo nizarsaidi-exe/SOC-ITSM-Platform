@@ -57,7 +57,7 @@ An enterprise-ready **SOC Incident Ticketing & Automation Platform**. Designed t
             ▲
             │
    ┌────────┴────────┐
-   │  n8n Workflows  │ ◄─── (Webhook Ingestion from Wazuh / Telegram)
+   │  n8n Workflows  │ ◄─── (Webhook Ingestion from Wazuh / Safeline)
    └─────────────────┘
 ```
 

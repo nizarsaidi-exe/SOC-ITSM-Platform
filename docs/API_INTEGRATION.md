@@ -9,3 +9,6 @@
 - **Wazuh**: Automated rule alert forwarding.
 - **n8n**: Workflow orchestration and payload transformation.
 - **SafeLine WAF**: Web application inspection and filtering layer.
+## 🔄 Automated Ingestion Workflow (n8n)
+
+![n8n Incident Response Workflow](../assets/n8n-workflow-screenshot.png)

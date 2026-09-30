@@ -8,3 +8,4 @@
    - n8n receives the webhook and parses incoming JSON data.
    - n8n triggers the backend API (`/api/tickets`) to automatically create an incident ticket.
    - Notifications dispatch via Telegram Bot API / email.
+![System Architecture Topology](../assets/architecture-topology.png)

@@ -73,7 +73,7 @@ services:
       - public
 
   n8n:
-    image: docker.n8n.io/n8nio/n8n:1.67.0
+    image: docker.n8n.io/n8nio/n8n:2.38.7
     container_name: n8n-automation
     restart: unless-stopped
     ports:

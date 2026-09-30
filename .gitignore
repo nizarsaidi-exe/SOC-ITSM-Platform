@@ -36,6 +36,7 @@ backups/
 # Runtime data / persistent volumes
 postgres_data/
 redis_data/
+redis_data.bak/
 n8n_data/
 uploads/
 backend/certs/

@@ -1,0 +1,32 @@
+# Secrets — never bake into the image
+.env
+*.env
+*.pem
+*.key
+*.crt
+*.htpasswd
+certs/
+backend/certs/
+!*.env.example
+
+# Python build/runtime artifacts
+__pycache__/
+*.py[cod]
+
+# Dev/test/backup noise
+*.bak
+*.bak-*
+*.pre-*-backup
+*.orig
+*.backup-*
+debug_*.py
+test_*.py
+verify_final.py
+gen_hash.py
+set_owner_pw.sql
+STEP1_MIGRATION_PLAN.txt
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store

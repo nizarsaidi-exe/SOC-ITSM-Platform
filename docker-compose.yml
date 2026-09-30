@@ -1,0 +1,119 @@
+services:
+  postgres:
+    image: postgres:15.8-alpine
+    container_name: jira-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-soc_jira}
+      POSTGRES_USER: ${DB_USER:-soc_jira}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    expose:
+      - "5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-soc_jira} -d ${DB_NAME:-soc_jira}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: jira-api
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      DB_HOST: jira-db
+      DB_NAME: ${DB_NAME:-soc_jira}
+      DB_USER: ${DB_USER:-soc_jira}
+      DB_PASS: ${DB_PASS}
+      WEBHOOK_SECRET: ${WEBHOOK_SECRET}
+      ONBOARD_API_KEY: ${ONBOARD_API_KEY}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRY_HOURS: "3"
+      AUTH_TOKEN_TTL_SECONDS: "1800"
+      SERVICE_TOKEN_KEY: ${SERVICE_TOKEN_KEY}
+      LDAP_DOMAIN: ${LDAP_DOMAIN}
+      LDAP_SERVER: ${LDAP_SERVER}
+      LDAP_PORT: "636"
+      LDAP_AUTH_ENABLED: ${LDAP_AUTH_ENABLED:-true}
+      LDAP_CA_CERT_FILE: /app/certs/ad-ca.pem
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
+      SEED_OWNER_EMAIL: ${SEED_OWNER_EMAIL}
+      SEED_OWNER_FULL_NAME: ${SEED_OWNER_FULL_NAME:-System Administrator}
+      ENV: ${ENV:-production}
+    volumes:
+      - ./uploads:/app/uploads
+      - ./backend/certs:/app/certs:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - backend
+      - public
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: jira-ui
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:80"
+    depends_on:
+      - api
+    volumes:
+      - ./frontend/.n8n.htpasswd:/etc/nginx/.n8n.htpasswd:ro
+    networks:
+      - public
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:1.67.0
+    container_name: n8n-automation
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5678:5678"
+    environment:
+      N8N_BASIC_AUTH_ACTIVE: "false"
+      N8N_HOST: ${N8N_HOST}
+      N8N_PORT: "5678"
+      N8N_PROTOCOL: "https"
+      N8N_SECURE_COOKIE: "false"
+      WEBHOOK_URL: https://${N8N_HOST}:5678/
+      N8N_EDITOR_BASE_URL: https://${N8N_HOST}:5678/
+      N8N_PUSH_BACKEND: websocket
+      N8N_PROXY_HOPS: "1"
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+    depends_on:
+      - postgres
+    networks:
+      - public
+
+  redis:
+    image: redis:7.2.5-alpine
+    container_name: soc-redis
+    restart: unless-stopped
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
+    expose:
+      - "6379"
+    volumes:
+      - ./redis_data:/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$${REDIS_PASSWORD}\" ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+networks:
+  backend:
+    driver: bridge
+  public:
+    driver: bridge

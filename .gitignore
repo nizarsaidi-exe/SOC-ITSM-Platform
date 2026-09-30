@@ -1,0 +1,64 @@
+# Secrets — never commit (.env.example files ARE committed)
+.env
+backend/.env
+*.env
+.env.*
+!*.env.example
+
+# Keys, certificates, database dumps
+*.key
+*.pem
+*.htpasswd
+frontend/.n8n.htpasswd
+frontend/.n8n.credentials
+*.crt
+*.p12
+*.jks
+*.dump
+*.sql.gz
+*.sql.bak
+*.rdb
+*.sqlite*
+*.db
+
+# Local dev artifacts (keys/certs/debug scripts/backups)
+_local_only_not_for_repo/
+debug_*.py
+test_*.py
+set_owner_pw.sql
+seed_cleanup.py
+update_email.py
+verify_final.py
+STEP*_*.txt
+*.backup
+backups/
+
+# Runtime data / persistent volumes
+postgres_data/
+redis_data/
+n8n_data/
+uploads/
+backend/certs/
+backend/seed_users.json
+seed_users.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.python-version
+
+# Node / frontend
+node_modules/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log
+# host-specific nginx config (see nginx.conf.example)
+/nginx.conf

@@ -34,32 +34,7 @@ An enterprise-ready **SOC Incident Ticketing & Automation Platform**. Designed t
 
 ## 🏗️ How It Works
 
-```text
-  [ External Web Traffic ]
-            │
-            ▼
-    ┌────────────────┐
-    │ SafeLine WAF   │ (HTTP Filtering & Reverse Proxy)
-    └───────┬────────┘
-            │
-   ┌────────┴──────────────────────────┐
-   │                                   │
-   ▼                                   ▼
-┌───────────────┐             ┌─────────────────┐
-│ React Frontend│             │  FastAPI Core   │
-└───────────────┘             └────────┬────────┘
-                                       │
-            ┌──────────────────────────┼──────────────────────────┐
-            ▼                          ▼                          ▼
-   ┌─────────────────┐        ┌─────────────────┐        ┌────────────────┐
-   │ PostgreSQL DB   │        │   Redis Cache   │        │ LDAP / Auth    │
-   └─────────────────┘        └─────────────────┘        └────────────────┘
-            ▲
-            │
-   ┌────────┴────────┐
-   │  n8n Workflows  │ ◄─── (Webhook Ingestion from Wazuh / Safeline)
-   └─────────────────┘
-```
+![SOC System Architecture & Automation Topology](assets/soc-topology-animated.svg)
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed component breakdowns.
 

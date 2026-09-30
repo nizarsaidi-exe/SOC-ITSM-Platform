@@ -12,51 +12,7 @@
 
 ## End-to-End SOAR Alert Lifecycle
 
-```mermaid
-sequenceDiagram
-   autonumber
-   participant Agent as Wazuh Agent (Windows Server 2025 Core)
-   participant Wazuh as Wazuh SIEM
-   participant n8n as n8n Orchestrator
-   participant Slack as Slack SOC SOAR Bot
-   participant SafeLine as SafeLine WAF
-   participant FortiGate as FortiGate VM
-   participant API as FastAPI Core
-   participant AD as Active Directory (LDAPS :636)
-   participant DB as PostgreSQL
-   participant React as React ITSM
-
-   Agent->>Wazuh: Send locally collected agent logs
-   Wazuh->>n8n: HTTP POST alert webhook
-   n8n->>n8n: Parse payload, enrich data, evaluate confidence and severity
-
-   alt Low/medium confidence
-      n8n->>Slack: Dispatch formatted alert to #soc-alerts
-      n8n->>API: Create or update incident ticket
-      API->>AD: Validate directory identity and map RBAC roles over LDAPS
-      AD-->>API: Return identity and role information
-      API->>DB: Persist and route incident record
-      DB-->>API: Return ticket record
-      API-->>React: Publish ticket update
-   else High confidence / critical
-      n8n->>SafeLine: Request WAF IP block
-      SafeLine-->>n8n: Return block action result
-      n8n->>FortiGate: Request perimeter IP block
-      FortiGate-->>n8n: Return block action result
-      n8n->>Slack: Dispatch block notice to #soc-blocks
-      n8n->>API: Escalate and route incident ticket
-      API->>AD: Validate directory identity and map RBAC roles over LDAPS
-      AD-->>API: Return identity and role information
-      API->>DB: Persist escalation and block-action references
-      DB-->>API: Return updated ticket record
-      API-->>React: Publish escalated ticket update
-   end
-
-   opt Execution error / exception at any workflow step
-      n8n->>n8n: Capture sanitized execution error and stack context
-      n8n->>Slack: Dispatch failure log to #soc-pipeline-errors
-   end
-```
+![SOC System Architecture & Automation Topology](../assets/soc-topology-animated.svg)
 
 ## Deployment Systems
 

@@ -16,7 +16,7 @@
 
 ## Slack SOAR Bot
 
-The **SOC SOAR Bot** (App ID `A0BVDUHMGNM`) operates in the **SOC Lab**
+The **SOC SOAR Bot** operates in the **SOC Lab**
 workspace and routes workflow notifications to three dedicated channels:
 
 | Channel | Events |

@@ -12,7 +12,7 @@
 </p>
 
 > [!IMPORTANT]
-> **Production Hardening:** Always generate unique secret keys in `.env` before public deployment. Refer to [SECURITY.md](SECURITY.md) for vulnerability reporting guidelines.
+> **Production Hardening**: Always generate unique secret keys in `.env` before public deployment. Refer to [SECURITY.md](SECURITY.md) for vulnerability reporting guidelines.
 
 ---
 
@@ -24,11 +24,11 @@ An enterprise-ready **SOC Incident Ticketing & Automation Platform**. Designed t
 
 ## 🔥 Key Capabilities
 
-- **Automated Incident Ingestion:** Receives real-time security alerts from Wazuh SIEM and webhook triggers via n8n pipelines.
-- **Role-Based Access Control (RBAC):** Fine-grained permissions for L1 Analysts, L2/L3 Engineers, and SOC Managers mapped via LDAP / DB.
-- **WAF Enforcement:** Fronted by SafeLine WAF / Nginx reverse proxy to filter malicious HTTP/HTTPS payloads.
-- **Incident Response Ticketing:** Triage statuses, severity tagging, automated assignments, and escalation workflows.
-- **Notification Pipelines:** Automated instant alerts dispatched directly to Telegram channels and security teams.
+* **Automated Incident Ingestion**: Receives real-time security alerts from Wazuh SIEM & webhook triggers via n8n pipelines.
+* **Role-Based Access Control (RBAC)**: Fine-grained permissions for L1 Analysts, L2/L3 Engineers, and SOC Managers mapped via LDAP / DB.
+* **WAF Enforcement**: Fronted by SafeLine WAF / Nginx reverse proxy to filter malicious HTTP/HTTPS payloads.
+* **Incident Response Ticketing**: Triage statuses, severity tagging, automated assignments, and escalation workflows.
+* **Notification Pipelines**: Automated instant alerts dispatched directly to Telegram channels and security teams.
 
 ---
 
@@ -39,9 +39,7 @@ An enterprise-ready **SOC Incident Ticketing & Automation Platform**. Designed t
             │
             ▼
     ┌────────────────┐
-    │ SafeLine WAF   │
-    │ HTTP Filtering │
-    │ Reverse Proxy  │
+    │ SafeLine WAF   │ (HTTP Filtering & Reverse Proxy)
     └───────┬────────┘
             │
    ┌────────┴──────────────────────────┐
@@ -59,54 +57,126 @@ An enterprise-ready **SOC Incident Ticketing & Automation Platform**. Designed t
             ▲
             │
    ┌────────┴────────┐
-   │  n8n Workflows  │
-   └────────┬────────┘
-            ▲
-            │
-   ┌────────┴─────────────────────┐
-   │ Wazuh / Telegram Webhooks    │
-   └──────────────────────────────┘
+   │  n8n Workflows  │ ◄─── (Webhook Ingestion from Wazuh / Telegram)
+   └─────────────────┘
+```
 
-See docs/ARCHITECTURE.md for detailed component breakdowns.
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed component breakdowns.
 
-🛠️ Quickstart
-1. Clone repository
+---
+
+## 🛠️ Quickstart
+
+### 1️⃣ Clone the Repository
+
+Clone the project from GitHub:
+
+```bash
 git clone https://github.com/nizarsaidi-exe/SOC-ITSM-Platform.git
+```
+
+Then enter the project directory:
+
+```bash
 cd SOC-ITSM-Platform
-2. Configure environment template
+```
+
+### 2️⃣ Configure Environment Variables
+
+Create your local .env file from the example template:
+
+```bash
 cp .env.example .env
-3. Build and run container stack
+```
+
+Note: Update the values in .env before deploying the platform, especially secret keys and credentials.
+
+### 3️⃣ Build and Launch Containers
+
+Build the Docker images and start the complete platform:
+
+```bash
 docker compose up -d --build
-📚 Technical Documentation
-Document	Description
-📐 Architecture Guide	Network design, container communication, and data flow.
-🔌 API & Webhook Integrations	Endpoint specifications, n8n trigger hooks, and payloads.
-🔐 RBAC & Permissions Matrix	User roles, LDAP integration, and access controls.
-⚙️ Deployment & Setup Guide	Installation, volume persistence, and database backups.
-🛡️ Security Policy	Vulnerability disclosure policy and security response.
-🌐 Community & Support
-Security Vulnerabilities
+```
+
+### 4️⃣ Verify Container Status
+
+Check that all containers are running:
+
+```bash
+docker compose ps
+```
+
+### 5️⃣ View Application Logs
+
+View logs for the complete stack:
+
+```bash
+docker compose logs -f
+```
+
+To view logs for a specific service:
+
+```bash
+docker compose logs -f <service-name>
+```
+
+### 6️⃣ Stop the Platform
+
+Stop the running containers:
+
+```bash
+docker compose down
+```
+
+### 7️⃣ Update the Platform
+
+Pull the latest version of the repository:
+
+```bash
+git pull
+```
+
+Then rebuild and restart the containers:
+
+```bash
+docker compose up -d --build
+```
+
+## 📚 Technical Documentation
+
+| Document                                                 | Description                                               |
+| -------------------------------------------------------- | --------------------------------------------------------- |
+| 📐 [Architecture Guide](docs/ARCHITECTURE.md)            | Network design, container communication, and data flow.   |
+| 🔌 [API & Webhook Integrations](docs/API_INTEGRATION.md) | Endpoint specifications, n8n trigger hooks, and payloads. |
+| 🔐 [RBAC & Permissions Matrix](docs/RBAC_MATRIX.md)      | User roles, LDAP integration, and access controls.        |
+| ⚙️ [Deployment & Setup Guide](SETUP.md)                  | Installation, volume persistence, and database backups.   |
+| 🛡️ [Security Policy](SECURITY.md)                       | Vulnerability disclosure policy and security response.    |
+
+## 🌐 Community & Support
+
+### 🔐 Security Vulnerabilities
 
 Follow the guidelines in SECURITY.md.
 
-Do not open public issues for zero-day or sensitive security vulnerabilities.
+Important: Do not open public GitHub issues for zero-day or sensitive security vulnerabilities.
 
-Bug Reports & Features
+### 🐛 Bug Reports & Features
 
 Open a GitHub Issue using the available issue templates.
 
-Documentation
+### 📖 Documentation
 
-Detailed guides are located inside the docs/ directory.
+Detailed technical guides are available inside the docs/ directory.
 
-⚖️ Notice & Disclaimer
+## ⚖️ Notice & Disclaimer
 
 This software is provided for security monitoring, defensive operations, and educational lab environments.
 
 The author assumes no liability for misconfigurations, unauthorized network operations, or service disruptions caused by deployment in unhardened environments.
 
-Ensure all credentials, secret keys, certificates, and other sensitive configuration values are updated before production use.
+Ensure all credentials, secret keys, certificates, and other sensitive configuration values are updated prior to production use.
 
-📄 License
+## 📄 License
 
 This project is licensed under the MIT License.

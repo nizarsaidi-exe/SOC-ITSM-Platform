@@ -1,5 +1,20 @@
 # Setup
 
+## System Requirements
+
+### VM Breakdown
+
+| System | OS / Platform | Hardware / License | Components |
+| --- | --- | --- | --- |
+| **SOC-Core-01** | **Ubuntu 22.04 LTS** | 2 vCPU, 4 GB RAM | Docker Engine, FastAPI Core, React Frontend, PostgreSQL, Redis, n8n. |
+| **SOC-Wazuh-01** | **Ubuntu 22.04 LTS** | 2 vCPU, 4 GB RAM | Wazuh Manager 4.x, Indexer, Dashboard. |
+| **SOC-SafeLine-01** | **Ubuntu 22.04 LTS** | 2 vCPU, 4 GB RAM | SafeLine WAF / Reverse Proxy. |
+| **SOC-DC-01** | **Windows Server 2025 Core (No GUI)** | 2 vCPU, 4 GB RAM | Active Directory Domain Services (AD DS), LDAPS (Port 636), DNS, Wazuh Agent installed locally. |
+| **Network & Perimeter** | **FortiGate VM & Centreon** | Running under evaluation/free lab licenses | Perimeter firewalling and monitoring. |
+
+There is no separate Windows client VM. The Wazuh Agent is installed directly
+on the Windows Server 2025 Core domain controller.
+
 ## First-time setup
 1. Copy the templates: cp .env.example .env and cp backend/.env.example backend/.env
 2. Fill every value. Generate each secret with: openssl rand -hex 32
@@ -23,7 +38,7 @@ The owner account is created at startup from SEED_OWNER_EMAIL with no password.
 1. Generate a single-use setup token with the service key:
 
        curl -X POST http://localhost:3000/api/auth/generate-token \
-         -H "X-Service-Key: YOUR_SERVICE_TOKEN_KEY" \
+         -H "X-Service-Key: CHANGE_ME_IN_PRODUCTION" \
          -H "Content-Type: application/json" \
          -d '{"username":"owner@example.com"}'
 

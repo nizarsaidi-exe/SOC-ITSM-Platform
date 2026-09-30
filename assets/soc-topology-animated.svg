@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1200" height="680" style="width: 100%; height: auto; max-width: 100%; display: block;" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1680" height="952" style="width: 100%; height: auto; max-width: 100%; display: block;" role="img" aria-labelledby="title description">
   <title id="title">SOC System Architecture and Automation Topology</title>
   <desc id="description">Animated infrastructure diagram connecting an analyst laptop, SOC core services, Tailscale mesh, Proxmox-hosted security virtual machines, external threat intelligence and AI services, and the SOAR response pipeline.</desc>
 

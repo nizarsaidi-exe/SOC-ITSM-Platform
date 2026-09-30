@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 220" width="100%">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F2FE" />
+      <stop offset="100%" stop-color="#4FACFE" />
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" rx="16" fill="url(#bgGrad)"/>
+  <g transform="translate(45, 30)">
+    <path d="M80 10 L140 40 V90 C140 130 80 160 80 160 C80 160 20 130 20 90 V40 Z" fill="none" stroke="url(#shieldGrad)" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M55 85 L72 102 L108 62" fill="none" stroke="#00F2FE" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="210" y="115" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="800" font-size="54" fill="#FFFFFF" letter-spacing="1">SOC ITSM</text>
+  <text x="212" y="152" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="500" font-size="20" fill="#94A3B8" letter-spacing="2">INCIDENT RESPONSE &amp; AUTOMATION PLATFORM</text>
+</svg>

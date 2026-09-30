@@ -34,7 +34,7 @@ An enterprise-ready **SOC Incident Ticketing & Automation Platform**. Designed t
 
 ## 🏗️ How It Works
 
-![SOC System Architecture & Automation Topology](assets/soc-topology-animated.svg)
+<img src="assets/soc-topology-animated.svg" alt="SOC topology" width="100%">
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed component breakdowns.
 
